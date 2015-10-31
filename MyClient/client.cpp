@@ -103,7 +103,9 @@ void Client::sessionOpened()
 
 void Client::requestConnection()
 {
-    tcpSocket->connectToHost("localhost" ,3000);
+    blockSize = 0;
+    tcpSocket->abort();
+    tcpSocket->connectToHost("localhost" ,2000);
     qDebug("connection to host successfully started");
 
 }
@@ -134,7 +136,7 @@ void Client::getData()
     }
     else
     {
-    if(recievedImage.save("/home/abdelrahman/test1.jpg"))
+    if(recievedImage.save("/home/abdelrahman/mytest1.jpg"))
         {
           qDebug()<<("Saved");
 
@@ -176,7 +178,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
     case QAbstractSocket::ConnectionRefusedError:
         QMessageBox::information(this, tr("Fortune Client"),
                                  tr("The connection was refused by the peer. "
-                                    "Make sure the fortune server is running, "
+                                    "Make sure the  server is running, "
                                     "and check that the host name and port "
                                     "settings are correct."));
         break;
